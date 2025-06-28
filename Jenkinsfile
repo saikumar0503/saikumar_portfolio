@@ -16,13 +16,6 @@ pipeline {
             }
         }
 
-    stage('Push to docker hub') {
-            steps {
-                echo 'Hello World'
-                sh'docker push sai7032/portfolio:latest'
-            }
-        }
-
     stage('deploy to ec2 server') {
             steps {
                 echo 'Hello World'

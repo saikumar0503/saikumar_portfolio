@@ -9,25 +9,28 @@ pipeline {
             }
         }
 
-    stage('Create image forr docker') {
+        stage('Create image forr docker') {
             steps {
                 echo 'Hello World'
-                sh'docker build -t sai7032/portfolio:latest .'
+                sh 'docker build -t sai7032/portfolio:latest .'
             }
         }
 
-    stage('deploy to ec2 server') {
+        stage('deploy to ec2 server') {
             steps {
                 echo 'Hello World'
-                sh'docker run -d -p 80:1000 sai7032/portfolio:latest'
+                sh '''
+                    docker stop portfolio || true
+                    docker rm portfolio || true
+                    docker run -d --name portfolio -p 80:1000 sai7032/portfolio:latest
+                '''
             }
         }
 
-    stage('Hello') {
+        stage('Hello') {
             steps {
                 echo 'Hello World'
             }
         }            
-
     }
 }
